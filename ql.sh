@@ -95,12 +95,14 @@ ql() {
 
   raw_head="$1"
   head="$(printf "%s	%b\n" "${timestamp}" "$1")" 
+  head="$(print "${head}" | fold -s | sed '2,$s/^/\t/')"
 
   print "${head}\n" >> "${QL_DIR}/${filename}"
 
   shift
 
-  body="$(printf "	%b\n" "$@")"
+  body="$(printf "%b\n" "$@")"
+  body="$(print "${body}" | fold -s | sed 's/^/\t/')"
 
   print "${body}\n" >> "${QL_DIR}/${filename}"
   print "   + $(printf "%s%s" "${raw_head}" "${body}" | wc -c) bytes"
