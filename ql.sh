@@ -16,21 +16,31 @@ USAGE
 OPTIONS
 	-l --list	List all log entries found in .ql directory
 	-s --search	Search all log entries with a search term
-	-v --view	View a log entry with given
+	-v --view	View a log entry with a given log filename
 	-h --help	Show help
 
 EXAMPLES
 	A longer log entry with heading and body.
 	ql 'I went to a supermarket' 'I bought 10 apples' 'Keywords: apples, supermarket'
+	=> writing 19032023.log
+	   +       73 bytes
 
 	Search logs with a search term
-	ql -s 'apples'
+	ql -s apples
+	=> search logs with "apples"
+	I bought 10 apples
+	Keywords: apples, supermarket
 
 	List all logs
 	ql -l
+	28022023.log
 
 	View a log
-	ql -v 28022023
+	ql -v 28022023.log
+	10:18	I went to a supermarket
+
+		I bought 10 apples
+		Keywords: apples, supermarket
 
 EOF
   exit 2
@@ -47,7 +57,7 @@ print() {
 
 search() {
   echo "=> search logs with \"$1\""
-  grep -ir --color=always "$1" "${QL_DIR}"
+  grep -irh --color=always "$1" "${QL_DIR}" | sed 's/^\t*//'
   exit
 }
 
@@ -57,7 +67,7 @@ list() {
 }
 
 view() {
-  cat "${QL_DIR}/$1.log"
+  cat "${QL_DIR}/$1"
   exit
 }
 
