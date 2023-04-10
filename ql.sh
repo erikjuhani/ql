@@ -62,7 +62,7 @@ search() {
 }
 
 list() {
-  ls -1 "${QL_DIR}"
+  ls -1 -t -U "${QL_DIR}"
   exit
 }
 
