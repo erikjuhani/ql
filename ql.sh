@@ -40,6 +40,7 @@ EXAMPLES
 	10:18	I went to a supermarket
 
 		I bought 10 apples
+
 		Keywords: apples, supermarket
 
 EOF
@@ -101,7 +102,7 @@ ql() {
 
   shift
 
-  body="$(printf "%b\n" "$@")"
+  body="$(printf "%b\n\n" "$@")"
   body="$(print "${body}" | fold -s | sed 's/^/\t/')"
 
   print "${body}\n" >> "${QL_DIR}/${filename}"
