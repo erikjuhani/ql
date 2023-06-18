@@ -37,6 +37,7 @@ ql <entry> [-l | --list] [-s | --search <search_term>] [-v | --view <log_filenam
 ### Options
 
 ```sh
+-e --editor	Open provided text editor to write a log
 -l --list	List all log entries found in .ql directory
 -s --search	Search all log entries with a search term
 -v --view	View a log entry with a given log filename
@@ -49,6 +50,21 @@ A longer log entry with heading and body
 
 ```sh
 ql 'I went to a supermarket' 'I bought 10 apples' 'Keywords: apples, supermarket'
+=> writing 28022023.log
+   +       73 bytes
+```
+
+A log entry using a text editor. `ql` formats the given text into log format.
+```sh
+ql -e vim
+
+> /temp_log_file
+> I went to a supermarket
+>
+> I bought 10 apples
+>
+> Keywords: apples, supermarket
+
 => writing 28022023.log
    +       73 bytes
 ```
