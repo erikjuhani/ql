@@ -42,15 +42,17 @@ EXAMPLES
 	Search logs with a search term
 	ql -s apples
 	=> search logs with "apples"
-	I bought 10 apples
-	Keywords: apples, supermarket
+	19032023 ~ 10:18        I went to a supermarket
+	19032023 ~
+	19032023 ~      I bought 10 apples
+	19032023 ~      Keywords: apples, supermarket
 
 	List all logs
 	ql -l
-	28022023.log
+	19032023.log
 
 	View a log
-	ql -v 28022023.log
+	ql -v 19032023.log
 	10:18	I went to a supermarket
 
 		I bought 10 apples
@@ -71,8 +73,8 @@ print() {
 }
 
 search() {
-  echo "=> search logs with \"$1\""
-  grep -irh --color=always "$1" "${QL_DIR}" | sed 's/^\t*//'
+  print "=> search logs with \"$1\""
+  grep -C 3 -ir --color=always "$1" "${QL_DIR}" | sed -e 's/.log-/ ~ /' -e 's/.log:/ ~ /' -e "s%${QL_DIR}/%%" -e 's/^\t*//'
   exit
 }
 
